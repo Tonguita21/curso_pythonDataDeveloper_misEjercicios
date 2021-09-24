@@ -1,0 +1,6 @@
+En la primer mitad se avanzo con el control de versiones utilizando GIT (bash)
+En la segunda mitad s trabajo con el desarrollo de API's.
+	- Teoria de APIs
+	- API Rest
+	- Creacion de servidor
+	- Libreria Flask
