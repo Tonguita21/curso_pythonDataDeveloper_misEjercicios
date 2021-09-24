@@ -14,8 +14,6 @@ print (app)
 def home():
     return "hola mundo desde la home de <b>flask</b>"
 
-app.run(port = 3000, host = "0.0.0.0")
-
 # -- Asignamos un puerto a la app
 # -- Un puerto seria como un nro de interno 
 # -- EL puerto 3000 se va acceder al servicio de flask
@@ -24,14 +22,19 @@ app.run(port = 3000, host = "0.0.0.0")
 # app.run(port = 3000)
 
 # -- agregamos una nueva ruta para users de twitter
+# -- de manera que devuelva un json hardcodeado con una lista de diccionarios.
 @app.route("/users")
 def usersTwitter():
     users = [
         { "name" : "smessina_" },
-        { "name" : "eanttech"}
+        { "name" : "eanttech"},
+        { "name" : "Tonguita21"},
+        { "name" : "bitcoinarg"}
         ]
     
     # -- json.dumps le da formato de json a la coleccion / diccionario
+    # -- Status = Es el estado de la ejecucion. Para este caso de prueba harcodeamos 200 (OK)
+    # -- mimetype Es una firma
     response = app.response_class(response = json.dumps(users), status = 200 , mimetype = "application/json") 
     
     return response  
@@ -39,6 +42,5 @@ def usersTwitter():
 # -- Asignamos una intranet
 app.run(port = 3000, host = "0.0.0.0")
 
-# print(app)
 
 
