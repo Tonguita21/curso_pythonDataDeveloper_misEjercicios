@@ -4,15 +4,29 @@ from flask import Flask, json
 # -- fue necesario instalar pip install pymongo[srv] para poder acceder a la BD de mongo
 # -- en un repositorio remoto (no local host)
 from pymongo import MongoClient
+# -- Esta libreria me permite armar la cadena de conexion con diccionarios
+from urllib.parse import urlencode
 
 
 # -- la variable __name__ tiene asociado el nombre del archivo 
 app = Flask(__name__)
 
+##########################
 # -- Conexion a MongoDB --
+##########################
 
+# -- Estas conexiones funcionan --
 # client = MongoClient("mongodb+srv://eant-groces:Gaston21@pdd-lm-n-297.r4bmn.mongodb.net/api-twitter?retryWrites=true&w=majority")
-client = MongoClient("mongodb+srv://eant-groces:Gaston21@pdd-lm-n-297.r4bmn.mongodb.net/api-twitter?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE")
+# client = MongoClient("mongodb+srv://eant-groces:Gaston21@pdd-lm-n-297.r4bmn.mongodb.net/api-twitter?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE")
+
+
+# -- Hacemos una conexion mas pro armando un diccionario con todas las diferentes configuraciones necesarias en la conexion --
+config = {'retryWrites' : "true",
+           'w' : "majority",
+           'ssl' : "true",
+           'ssl_cert_reqs' : "CERT_NONE"}
+ 
+client = MongoClient("mongodb+srv://eant-groces:Gaston21@pdd-lm-n-297.r4bmn.mongodb.net/api-twitter?" + urlencode(config))
 
 
 # -- Agregamos la ruta tweets 
