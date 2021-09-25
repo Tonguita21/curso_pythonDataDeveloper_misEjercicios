@@ -9,23 +9,35 @@ from pymongo import MongoClient
 # -- la variable __name__ tiene asociado el nombre del archivo 
 app = Flask(__name__)
 
-# -- Mongo db --
+# -- Conexion a MongoDB --
+
+# client = MongoClient("mongodb+srv://eant-groces:Gaston21@pdd-lm-n-297.r4bmn.mongodb.net/api-twitter?retryWrites=true&w=majority")
 client = MongoClient("mongodb+srv://eant-groces:Gaston21@pdd-lm-n-297.r4bmn.mongodb.net/api-twitter?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE")
 
-
-# client = pymongo.MongoClient("mongodb+srv://eant-groces:Gaston21@pdd-lm-n-297.r4bmn.mongodb.net/pdd-lm-n-297?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE
-# ")
 
 @app.route("/tweets")
 def getTweets():
     twitter = client['api-twitter']['tweets']
     
     users = twitter.find()
+    # users = twitter.find().limit(2)  -- En el caso de querer limitar
+    
+    # for user in users:
+    #     print('------------------')
+    #     print(user)
+    # return "mira la consola..."
+    
+    result = []
     
     for user in users:
-        print(user)
+        item = { 'usuario': user['name']}
+        result.append(item)
+                
+    
+    return app.response_class(response = json.dumps(result), status = 200 , mimetype = "application/json")
+  # response = app.response_class(response = json.dumps(users), status = 200 , mimetype = "application/json") 
         
-    return "mira la consola..."
+    # return response
 
 
 # -- armamos la ruta de la app
